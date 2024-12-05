@@ -20,7 +20,7 @@ def process_csv_and_get_totals(csv_file):
     asset_totals = assets[assets['Category'].str.contains('Total', case=False, na=False)]
     liabilities_totals = liabilities_and_equity[liabilities_and_equity['Category'].str.contains('Total', case=False, na=False)]
     
-    return asset_totals['Category'], asset_totals['Total'], liabilities_totals['Category'], liabilities_totals['Total']
+    return asset_totals['Category'], asset_totals['Amount'], liabilities_totals['Category'], liabilities_totals['Amount']
 
 # Set the password
 PASSWORD = "periodpassword"
