@@ -74,7 +74,7 @@ else:
             ax.pie(assettotal, labels=assetcategory, autopct="%1.1f%%", startangle=90, colors=colors)
             ax.set_title("Asset Distribution", fontsize=14, color="#B22222")
             st.pyplot(fig)
-        elif "balance" in uploaded_file.name.lower():
+        #elif "balance" in uploaded_file.name.lower():
     else:
         st.info("Awaiting file upload. Please upload a CSV file.")
     balance_sheet_data = pd.DataFrame({
