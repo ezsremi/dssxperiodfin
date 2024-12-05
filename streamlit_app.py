@@ -120,7 +120,6 @@ else:
             })
 
             # Create an interactive bar chart using Plotly
-            st.subheader("Income Categories Distribution")
             fig = px.bar(
                 data,
                 x="Income Category",
@@ -151,7 +150,6 @@ else:
             })
 
             # Create an interactive bar chart using Plotly
-            st.subheader("Expenses Categories Distribution")
             fig1 = px.bar(
                 data1,
                 x="Expenses Category",
@@ -182,7 +180,6 @@ else:
             })
 
             # Create an interactive bar chart using Plotly
-            st.subheader("Net Categories Distribution")
             fig2 = px.bar(
                 data2,
                 x="Net Category",
