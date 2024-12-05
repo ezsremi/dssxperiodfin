@@ -60,15 +60,16 @@ else:
     # Process the uploaded file
     if uploaded_file is not None:
         # Read the uploaded CSV file into a DataFrame
-        df = pd.read_csv(uploaded_file)
+        assetcategory, assettotal, liabilitycategory, liabilitytotal = process_csv_and_get_totals(csv_file)
         
         # Display the DataFrame
         st.subheader("Uploaded File Contents:")
-        st.write(df)
-        
-        # Show basic statistics
-        st.subheader("Basic Statistics:")
-        st.write(df.describe())
+        st.subheader("Asset Distribution")
+        fig, ax = plt.subplots(figsize=(6, 6))
+        colors = ["#B22222", "#CD5C5C", "#FA8072"]
+        ax.pie(assettotal, labels=assetcategory, autopct="%1.1f%%", startangle=90, colors=colors)
+        ax.set_title("Asset Distribution", fontsize=14, color="#B22222")
+        st.pyplot(fig)
     else:
         st.info("Awaiting file upload. Please upload a CSV file.")
     balance_sheet_data = pd.DataFrame({
