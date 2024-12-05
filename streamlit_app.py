@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import matplotlib as plt
+import matplotlib.pyplot as plt
 
 # Set up styling and color scheme
 st.set_page_config(page_title="DSS x Period Financial Dashboard", layout="wide")
