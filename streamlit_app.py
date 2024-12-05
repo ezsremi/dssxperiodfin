@@ -60,7 +60,7 @@ else:
     # Process the uploaded file
     if uploaded_file is not None:
         # Read the uploaded CSV file into a DataFrame
-        assetcategory, assettotal, liabilitycategory, liabilitytotal = process_csv_and_get_totals(csv_file)
+        assetcategory, assettotal, liabilitycategory, liabilitytotal = process_csv_and_get_totals(uploaded_file)
         
         # Display the DataFrame
         st.subheader("Uploaded File Contents:")
