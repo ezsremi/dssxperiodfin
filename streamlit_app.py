@@ -142,6 +142,68 @@ else:
 
             # Display the interactive chart in Streamlit
             st.plotly_chart(fig, use_container_width=True)
+
+            st.subheader("Expenses Categories Distribution")
+            # Create a DataFrame from the series
+            data1 = pd.DataFrame({
+                "Expenses Category": expensescategory,
+                "Amount": expensestotal
+            })
+
+            # Create an interactive bar chart using Plotly
+            st.subheader("Expenses Categories Distribution")
+            fig = px.bar(
+                data1,
+                x="Expense Category",
+                y="Amount",
+                text="Amount",
+                title="Expenses Categories",
+                labels={"Expenses Category": "Category", "Amount": "Expenses Amount ($)"},
+                color="Expenses Category"
+            )
+
+            # Customize chart appearance
+            fig.update_traces(texttemplate="$%{text:.2f}", textposition="outside")
+            fig.update_layout(
+                xaxis_title="Expenses Category",
+                yaxis_title="Amount ($)",
+                showlegend=False,
+                template="plotly_white"
+            )
+
+            # Display the interactive chart in Streamlit
+            st.plotly_chart(fig, use_container_width=True)
+
+            st.subheader("Net Categories Distribution")
+            # Create a DataFrame from the series
+            data2 = pd.DataFrame({
+                "Net Category": netcategory,
+                "Amount": nettotal
+            })
+
+            # Create an interactive bar chart using Plotly
+            st.subheader("Net Categories Distribution")
+            fig = px.bar(
+                data2,
+                x="Net Category",
+                y="Amount",
+                text="Amount",
+                title="Net Categories",
+                labels={"Net Category": "Category", "Amount": "Net Amount ($)"},
+                color="Net Category"
+            )
+
+            # Customize chart appearance
+            fig.update_traces(texttemplate="$%{text:.2f}", textposition="outside")
+            fig.update_layout(
+                xaxis_title="Net Category",
+                yaxis_title="Amount ($)",
+                showlegend=False,
+                template="plotly_white"
+            )
+
+            # Display the interactive chart in Streamlit
+            st.plotly_chart(fig, use_container_width=True)
     else:
         st.info("Awaiting file upload. Please upload a CSV file.")
     balance_sheet_data = pd.DataFrame({
