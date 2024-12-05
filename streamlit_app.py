@@ -46,9 +46,6 @@ else:
         "Amount": [96327.33, 188019.31, 0.00, 57248.54]
     })
 
-    # Sidebar for filter options
-    st.sidebar.header("Dashboard Documentation")
-
     # Balance Sheet: Pie Chart for Asset Distribution with red color scheme
     st.subheader("Asset Distribution")
     fig, ax = plt.subplots(figsize=(6, 6))
