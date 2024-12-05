@@ -130,9 +130,8 @@ else:
                 showlegend=False,
                 template="plotly_white"
             )
-
-# Display the interactive chart in Streamlit
-st.plotly_chart(fig, use_container_width=True)
+            # Display the interactive chart in Streamlit
+            st.plotly_chart(fig, use_container_width=True)
     else:
         st.info("Awaiting file upload. Please upload a CSV file.")
     balance_sheet_data = pd.DataFrame({
