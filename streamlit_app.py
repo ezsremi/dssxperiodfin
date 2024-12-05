@@ -5,10 +5,6 @@ import matplotlib.pyplot as plt
 # Set up styling and color scheme
 st.set_page_config(page_title="DSS x Period Financial Dashboard", layout="wide")
 st.markdown("<h1 style='text-align: center; color: #B22222;'>DSS x Period Automated Dashboard</h1>", unsafe_allow_html=True)
-if st.button("Documentation"):
-    st.write("Click [here](https://docs.google.com/document/d/1K6mAgw4I_pu06gdvjqOfTxXiHzgqGai3sHsZLqzYBk8/edit?usp=sharing) for the full documentation.")
-    # or use st.markdown directly to open link in new tab:
-    st.write("If you encounter issues with this app, please contact [DSS at Berkeley](https://dssberkeley.com/)")
 # Load cleaned data from preprocessed balance sheet and profit/loss
 balance_sheet_data = pd.DataFrame({
     "Category": ["Current Assets", "Fixed Assets", "Other Assets"],
@@ -22,6 +18,10 @@ profit_loss_data = pd.DataFrame({
 
 # Sidebar for filter options
 st.sidebar.header("Dashboard Documentation")
+if st.button("Documentation"):
+    st.write("Click [here](https://docs.google.com/document/d/1K6mAgw4I_pu06gdvjqOfTxXiHzgqGai3sHsZLqzYBk8/edit?usp=sharing) for the full documentation.")
+    # or use st.markdown directly to open link in new tab:
+    st.write("If you encounter issues with this app, please contact [DSS at Berkeley](https://dssberkeley.com/)")
 
 # Balance Sheet: Pie Chart for Asset Distribution with red color scheme
 st.subheader("Asset Distribution")
