@@ -102,14 +102,6 @@ else:
             fig = px.pie(values=liabilitytotal, names=liabilitycategory, title="Liability Distribution", hover_name=liabilitycategory)
             st.plotly_chart(fig, use_container_width=True)
 
-            #  # Summary Statistics with red-themed metrics
-            # st.subheader("Summary Statistics")
-            # total_assets = assettotal.sum()
-            # total_income = profit_loss_data["Amount"].sum()
-
-            # col1, col2 = st.columns(2)
-            # col1.metric("Total Assets", f"${total_assets:,.2f}", delta=None, delta_color="inverse")
-            # col2.metric("Total Income", f"${total_income:,.2f}", delta=None, delta_color="inverse")
         elif "profit" in uploaded_file.name.lower():
             incomecategory, incometotal, expensescategory, expensestotal, netcategory, nettotal = PF_totals(uploaded_file)
             st.subheader("Income Categories Distribution")
@@ -118,6 +110,8 @@ else:
                 "Income Category": incomecategory,
                 "Amount": incometotal
             })
+
+            data = data.drop(-1)
 
             # Create an interactive bar chart using Plotly
             fig = px.bar(
@@ -203,26 +197,6 @@ else:
             st.plotly_chart(fig2, use_container_width=True)
     else:
         st.info("Awaiting file upload. Please upload a CSV file.")
-    balance_sheet_data = pd.DataFrame({
-        "Category": ["Current Assets", "Fixed Assets", "Other Assets"],
-        "Amount": [250448.58, 50000.00, 35000.00]
-    })
-
-    profit_loss_data = pd.DataFrame({
-        "Account": ["Individual Donations", "Corporate Contributions", "In-Kind Donations", "In-Kind Product Donations"],
-        "Amount": [96327.33, 188019.31, 0.00, 57248.54]
-    })
-
-    # Profit and Loss: Bar Chart for Income Sources with red color scheme
-    # st.subheader("Income Sources")
-    # fig, ax = plt.subplots(figsize=(10, 5))
-    # ax.bar(profit_loss_data["Account"], profit_loss_data["Amount"], color="#B22222", edgecolor="black")
-    # ax.set_title("Income Sources", fontsize=14, color="#B22222")
-    # ax.set_xlabel("Account", fontsize=12, color="#B22222")
-    # ax.set_ylabel("Amount ($)", fontsize=12, color="#B22222")
-    # plt.xticks(rotation=45, color="#B22222")
-    # plt.yticks(color="#B22222")
-    # st.pyplot(fig)
 
     st.markdown("<h4 style='text-align: center; color: #B22222;'>About this Dashboard</h4>", unsafe_allow_html=True)
     st.write("This dashboard is designed for Period, Inc. to automatically visualize relevant financial figures.")
