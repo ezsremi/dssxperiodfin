@@ -18,8 +18,9 @@ def process_csv_and_get_totals(csv_file):
     
     # Get rows with 'Total' in the specified column
     asset_totals = assets[assets['Category'].str.contains('Total', case=False, na=False)]
+    asset_totals.Amount = asset_totals.Amount.astype(str).str.replace('$| |,', '').astype('float')
     liabilities_totals = liabilities_and_equity[liabilities_and_equity['Category'].str.contains('Total', case=False, na=False)]
-    
+    liabilities_totals.Amount = liabilities_totals.Amount.astype(str).str.replace('$| |,', '').astype('float')
     return asset_totals['Category'], asset_totals['Amount'], liabilities_totals['Category'], liabilities_totals['Amount']
 
 # Set the password
