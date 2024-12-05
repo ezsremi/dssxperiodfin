@@ -152,7 +152,7 @@ else:
 
             # Create an interactive bar chart using Plotly
             st.subheader("Expenses Categories Distribution")
-            fig = px.bar(
+            fig1 = px.bar(
                 data1,
                 x="Expense Category",
                 y="Amount",
@@ -163,8 +163,8 @@ else:
             )
 
             # Customize chart appearance
-            fig.update_traces(texttemplate="$%{text:.2f}", textposition="outside")
-            fig.update_layout(
+            fig1.update_traces(texttemplate="$%{text:.2f}", textposition="outside")
+            fig1.update_layout(
                 xaxis_title="Expenses Category",
                 yaxis_title="Amount ($)",
                 showlegend=False,
@@ -172,7 +172,7 @@ else:
             )
 
             # Display the interactive chart in Streamlit
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig1, use_container_width=True)
 
             st.subheader("Net Categories Distribution")
             # Create a DataFrame from the series
@@ -183,7 +183,7 @@ else:
 
             # Create an interactive bar chart using Plotly
             st.subheader("Net Categories Distribution")
-            fig = px.bar(
+            fig2 = px.bar(
                 data2,
                 x="Net Category",
                 y="Amount",
@@ -194,8 +194,8 @@ else:
             )
 
             # Customize chart appearance
-            fig.update_traces(texttemplate="$%{text:.2f}", textposition="outside")
-            fig.update_layout(
+            fig2.update_traces(texttemplate="$%{text:.2f}", textposition="outside")
+            fig2.update_layout(
                 xaxis_title="Net Category",
                 yaxis_title="Amount ($)",
                 showlegend=False,
@@ -203,7 +203,7 @@ else:
             )
 
             # Display the interactive chart in Streamlit
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig2, use_container_width=True)
     else:
         st.info("Awaiting file upload. Please upload a CSV file.")
     balance_sheet_data = pd.DataFrame({
