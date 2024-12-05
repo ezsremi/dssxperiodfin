@@ -26,6 +26,29 @@ def balanceTotals(csv_file):
 
     return totalAsset['Category'], totalAsset['Amount'], totalLiabilities['Category'], totalLiabilities['Amount']
 
+def PF_totals(csv_file):
+    df = pd.read_csv(csv_file)
+    df.rename(columns={'Period.,Inc.': 'Category', 'Unnamed: 1': 'Amount'}, inplace=True)
+
+    # Drop NaN values
+    df = df.dropna()
+
+    #Cast to float
+    df['Amount'] = df['Amount'].replace({',': '', '\$': '', '-': ' '}, regex=True).astype(float)
+
+    #Look for Totals
+    getTotals = df[df['Category'].str.contains('Total', case=False, na=False)]
+
+    # Splitting data
+    income = getTotals.iloc[0:4]
+    expenses = getTotals.iloc[4:]
+
+
+    net = df[df['Category'].str.contains('Net', case=False, na=False)]
+
+    # Return the processed data
+    return income['Category'], income['Amount'], expenses['Category'], expenses['Amount'], net['Category'], net['Amount']
+
 # Set the password
 PASSWORD = "periodpassword"
 
@@ -78,7 +101,38 @@ else:
             #show liability chart
             fig = px.pie(values=liabilitytotal, names=liabilitycategory, title="Liability Distribution", hover_name=liabilitycategory)
             st.plotly_chart(fig, use_container_width=True)
-        #elif "balance" in uploaded_file.name.lower():
+
+            #  # Summary Statistics with red-themed metrics
+            # st.subheader("Summary Statistics")
+            # total_assets = assettotal.sum()
+            # total_income = profit_loss_data["Amount"].sum()
+
+            # col1, col2 = st.columns(2)
+            # col1.metric("Total Assets", f"${total_assets:,.2f}", delta=None, delta_color="inverse")
+            # col2.metric("Total Income", f"${total_income:,.2f}", delta=None, delta_color="inverse")
+        elif "profit" in uploaded_file.name.lower():
+            incomecategory, incometotal, expensescategory, expensestotal, netcategory, nettotal = PF_totals(uploaded_file)
+            st.subheader("Income Categories Distribution")
+            fig = px.bar(
+                x=incomecategory,
+                y=incometotal,
+                text=incomecategory,
+                title="Income Categories",
+                labels={incomecategory: "Category", incometotal: "Income Amount ($)"},
+                color="Income Category"
+            )
+
+            # Customize chart appearance
+            fig.update_traces(texttemplate="$%{text:.2f}", textposition="outside")
+            fig.update_layout(
+                xaxis_title="Income Category",
+                yaxis_title="Amount ($)",
+                showlegend=False,
+                template="plotly_white"
+            )
+
+# Display the interactive chart in Streamlit
+st.plotly_chart(fig, use_container_width=True)
     else:
         st.info("Awaiting file upload. Please upload a CSV file.")
     balance_sheet_data = pd.DataFrame({
@@ -91,33 +145,16 @@ else:
         "Amount": [96327.33, 188019.31, 0.00, 57248.54]
     })
 
-    # Balance Sheet: Pie Chart for Asset Distribution with red color scheme
-    st.subheader("Asset Distribution")
-    fig, ax = plt.subplots(figsize=(6, 6))
-    colors = ["#B22222", "#CD5C5C", "#FA8072"]
-    ax.pie(balance_sheet_data["Amount"], labels=balance_sheet_data["Category"], autopct="%1.1f%%", startangle=90, colors=colors)
-    ax.set_title("Asset Distribution", fontsize=14, color="#B22222")
-    st.pyplot(fig)
-
     # Profit and Loss: Bar Chart for Income Sources with red color scheme
-    st.subheader("Income Sources")
-    fig, ax = plt.subplots(figsize=(10, 5))
-    ax.bar(profit_loss_data["Account"], profit_loss_data["Amount"], color="#B22222", edgecolor="black")
-    ax.set_title("Income Sources", fontsize=14, color="#B22222")
-    ax.set_xlabel("Account", fontsize=12, color="#B22222")
-    ax.set_ylabel("Amount ($)", fontsize=12, color="#B22222")
-    plt.xticks(rotation=45, color="#B22222")
-    plt.yticks(color="#B22222")
-    st.pyplot(fig)
-
-    # Summary Statistics with red-themed metrics
-    st.subheader("Summary Statistics")
-    total_assets = balance_sheet_data["Amount"].sum()
-    total_income = profit_loss_data["Amount"].sum()
-
-    col1, col2 = st.columns(2)
-    col1.metric("Total Assets", f"${total_assets:,.2f}", delta=None, delta_color="inverse")
-    col2.metric("Total Income", f"${total_income:,.2f}", delta=None, delta_color="inverse")
+    # st.subheader("Income Sources")
+    # fig, ax = plt.subplots(figsize=(10, 5))
+    # ax.bar(profit_loss_data["Account"], profit_loss_data["Amount"], color="#B22222", edgecolor="black")
+    # ax.set_title("Income Sources", fontsize=14, color="#B22222")
+    # ax.set_xlabel("Account", fontsize=12, color="#B22222")
+    # ax.set_ylabel("Amount ($)", fontsize=12, color="#B22222")
+    # plt.xticks(rotation=45, color="#B22222")
+    # plt.yticks(color="#B22222")
+    # st.pyplot(fig)
 
     st.markdown("<h4 style='text-align: center; color: #B22222;'>About this Dashboard</h4>", unsafe_allow_html=True)
     st.write("This dashboard is designed for Period, Inc. to automatically visualize relevant financial figures.")
