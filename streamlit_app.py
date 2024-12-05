@@ -76,7 +76,7 @@ else:
 
 
             #show liability chart
-            fig = px.pie(values=liabilitytotal, names=liabilitycategory, title="Liability Distribution", hover_name=assetcategory)
+            fig = px.pie(values=liabilitytotal, names=liabilitycategory, title="Liability Distribution", hover_name=liabilitycategory)
             st.plotly_chart(fig, use_container_width=True)
         #elif "balance" in uploaded_file.name.lower():
     else:
