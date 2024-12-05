@@ -2,6 +2,26 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
+def process_csv_and_get_totals(csv_file):
+ 
+    df = pd.read_csv(csv_file)
+    
+    # Rename columns
+    df.rename(columns={'Period.,Inc.': 'Category', 'Unnamed: 1': 'Amount'}, inplace=True)
+    
+    # Drop rows with NaN
+    df = df.dropna()
+    
+    # Slice data into Assets and Liabilities sections
+    assets = df.iloc[0:23]
+    liabilities_and_equity = df.iloc[23:62]
+    
+    # Get rows with 'Total' in the specified column
+    asset_totals = assets[assets['Category'].str.contains('Total', case=False, na=False)]
+    liabilities_totals = liabilities_and_equity[liabilities_and_equity['Category'].str.contains('Total', case=False, na=False)]
+    
+    return asset_totals['Category'], asset_totals['Total'], liabilities_totals['Category'], liabilities_totals['Total']
+
 # Set the password
 PASSWORD = "periodpassword"
 
@@ -36,6 +56,21 @@ else:
         # or use st.markdown directly to open link in new tab:
         st.write("If you encounter issues with this app, please contact [DSS at Berkeley](https://dssberkeley.com/)")
     # Load cleaned data from preprocessed balance sheet and profit/loss
+    uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+    # Process the uploaded file
+    if uploaded_file is not None:
+        # Read the uploaded CSV file into a DataFrame
+        df = pd.read_csv(uploaded_file)
+        
+        # Display the DataFrame
+        st.subheader("Uploaded File Contents:")
+        st.write(df)
+        
+        # Show basic statistics
+        st.subheader("Basic Statistics:")
+        st.write(df.describe())
+    else:
+        st.info("Awaiting file upload. Please upload a CSV file.")
     balance_sheet_data = pd.DataFrame({
         "Category": ["Current Assets", "Fixed Assets", "Other Assets"],
         "Amount": [250448.58, 50000.00, 35000.00]
