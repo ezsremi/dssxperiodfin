@@ -67,12 +67,19 @@ else:
             assetcategory, assettotal, liabilitycategory, liabilitytotal = process_csv_and_get_totals(uploaded_file)
             
             # Display the DataFrame
-            st.subheader("Uploaded File Contents:")
+            st.subheader("Uploaded File Visualizations:")
             st.subheader("Asset Distribution")
-            fig, ax = plt.subplots(figsize=(6, 6))
+            fig, ax = plt.subplots(figsize=(3, 3))
             colors = ["#B22222", "#CD5C5C", "#FA8072"]
             ax.pie(assettotal, labels=assetcategory, autopct="%1.1f%%", startangle=90, colors=colors)
             ax.set_title("Asset Distribution", fontsize=14, color="#B22222")
+            st.pyplot(fig)
+
+            st.subheader("Liability Distribution")
+            fig, ax = plt.subplots(figsize=(3, 3))
+            colors = ["#B22222", "#CD5C5C", "#FA8072"]
+            ax.pie(liabilitytotaltotal, labels=liabilitycategorycategory, autopct="%1.1f%%", startangle=90, colors=colors)
+            ax.set_title("Liability Distribution", fontsize=14, color="#B22222")
             st.pyplot(fig)
         #elif "balance" in uploaded_file.name.lower():
     else:
