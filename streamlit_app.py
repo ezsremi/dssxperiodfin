@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import plotly.express as px
 
-def process_csv_and_get_totals(csv_file):
+def balanceTotals(csv_file):
 
     df = pd.read_csv(csv_file)
 
@@ -13,18 +13,18 @@ def process_csv_and_get_totals(csv_file):
     # Drop rows with NaN
     df = df.dropna()
 
-    #Cast to floa
-    df['Amount'] = df['Amount'].replace({',': '', '\$': '', ' ': ''}, regex=True).astype(float)
+    #Cast to float vlaues
+    df['Amount'] = df['Amount'].replace({',': '', '\$': '','-':' '}, regex=True).astype(float)
 
-    # Slice data into Assets and Liabilities sections
-    assets = df.iloc[0:23]
-    liabilities_and_equity = df.iloc[23:62]
+    #Getting totals
+    getTotals = df[df['Category'].str.contains('Total', case=False, na=False)]
 
-    # Get rows with 'Total' in the specified column
-    asset_totals = assets[assets['Category'].str.contains('Total', case=False, na=False)]
-    liabilities_totals = liabilities_and_equity[liabilities_and_equity['Category'].str.contains('Total', case=False, na=False)]
+    #Splitting data
+    totalAsset = getTotals.iloc[0:7]
+    totalLiabilities = getTotals.iloc[7:] 
 
-    return asset_totals['Category'], asset_totals['Amount'], liabilities_totals['Category'], liabilities_totals['Amount']
+
+    return totalAsset['Category'], totalAsset['Amount'], totalLiabilities['Category'], totalLiabilities['Amount']
 
 # Set the password
 PASSWORD = "periodpassword"
@@ -65,19 +65,13 @@ else:
     if uploaded_file is not None:
         if "balance" in uploaded_file.name.lower():
             # Read the uploaded CSV file into a DataFrame
-            assetcategory, assettotal, liabilitycategory, liabilitytotal = process_csv_and_get_totals(uploaded_file)
+            assetcategory, assettotal, liabilitycategory, liabilitytotal = balanceTotals(uploaded_file)
             
             # Display the DataFrame
             st.subheader("Uploaded File Visualizations:")
-            st.subheader("Asset Distribution")
-            # fig, ax = plt.subplots(figsize=(3, 3))
-            # colors = ["#B22222", "#CD5C5C", "#FA8072"]
-            # ax.pie(assettotal, labels=assetcategory, autopct="%1.1f%%", startangle=90, colors=colors)
-            # ax.set_title("Asset Distribution", fontsize=14, color="#B22222")
-            # st.pyplot(fig)
-            fig = px.pie(values=assettotal, names=assetcategory, title="Asset Distribution", hover_name=assetcategory)
 
-            # Display the interactive chart
+            #show asset chart
+            fig = px.pie(values=assettotal, names=assetcategory, title="Asset Distribution", hover_name=assetcategory)
             st.plotly_chart(fig, use_container_width=True)
 
 
