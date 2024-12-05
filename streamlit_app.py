@@ -71,7 +71,7 @@ else:
             st.subheader("Asset Distribution")
             fig, ax = plt.subplots(figsize=(3, 3))
             colors = ["#B22222", "#CD5C5C", "#FA8072"]
-            ax.pie(assettotal, labels=assetcategory, autopct="%1.1f%%", startangle=90, colors=colors, hover_name="Category")
+            ax.pie(assettotal, labels=assetcategory, autopct="%1.1f%%", startangle=90, colors=colors)
             ax.set_title("Asset Distribution", fontsize=14, color="#B22222")
             st.pyplot(fig)
 
