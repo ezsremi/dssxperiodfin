@@ -203,16 +203,14 @@ else:
         st.session_state["show_links"] = not st.session_state["show_links"]
 
     # Button to toggle documentation links
-    if st.button("Show/Hide Documentation Links", on_click=toggle_links):
+    if st.button("Show/Hide Documentation", on_click=toggle_links):
         pass
 
     # Display clickable documentation links if toggled
     if st.session_state["show_links"]:
         st.subheader("Helpful Documentation Links:")
-        st.markdown("- [Streamlit Documentation](https://docs.streamlit.io/)")
-        st.markdown("- [Plotly Documentation](https://plotly.com/python/)")
-        st.markdown("- [Pandas Documentation](https://pandas.pydata.org/docs/)")
-        st.markdown("- [Matplotlib Documentation](https://matplotlib.org/stable/contents.html)")
+        st.markdown("- [Dashboard Documentation](https://docs.google.com/document/d/1K6mAgw4I_pu06gdvjqOfTxXiHzgqGai3sHsZLqzYBk8/edit?usp=sharing)")
+        st.markdown("- For Dashboard Maintenance or errors, [Contact DSS](https://dssberkeley.com/)")
 
 
     # End of Streamlit app
