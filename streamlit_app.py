@@ -194,20 +194,25 @@ else:
 
     st.markdown("<h4 style='text-align: center; color: #B22222;'>About this Dashboard</h4>", unsafe_allow_html=True)
     st.write("This dashboard is designed for Period, Inc. to automatically visualize relevant financial figures.")
-    if "show_text" not in st.session_state:
-        st.session_state["show_text"] = False
 
-        # Define a function to toggle the text visibility
-        def toggle_text():
-            st.session_state["show_text"] = not st.session_state["show_text"]
+    if "show_links" not in st.session_state:
+        st.session_state["show_links"] = False
 
-        # Create a button to toggle the text
-        if st.button("Show/Hide Information", on_click=toggle_text):
-            pass  # The button updates the session state when clicked
+    # Function to toggle the visibility of links
+    def toggle_links():
+        st.session_state["show_links"] = not st.session_state["show_links"]
 
-        # Conditionally display the text based on the session state
-        if st.session_state["show_text"]:
-            st.write("Here is some important information that can be shown or hidden using the button above.")
+    # Button to toggle documentation links
+    if st.button("Show/Hide Documentation Links", on_click=toggle_links):
+        pass
+
+    # Display clickable documentation links if toggled
+    if st.session_state["show_links"]:
+        st.subheader("Helpful Documentation Links:")
+        st.markdown("- [Streamlit Documentation](https://docs.streamlit.io/)")
+        st.markdown("- [Plotly Documentation](https://plotly.com/python/)")
+        st.markdown("- [Pandas Documentation](https://pandas.pydata.org/docs/)")
+        st.markdown("- [Matplotlib Documentation](https://matplotlib.org/stable/contents.html)")
 
 
     # End of Streamlit app
