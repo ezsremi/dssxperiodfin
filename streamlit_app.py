@@ -78,10 +78,6 @@ if not st.session_state["authenticated"]:
 else:
     # Set up styling and color scheme
     st.markdown("<h1 style='text-align: center; color: #B22222;'>DSS x Period Automated Dashboard</h1>", unsafe_allow_html=True)
-    if st.button("Documentation"):
-        st.write("Click [here](https://docs.google.com/document/d/1K6mAgw4I_pu06gdvjqOfTxXiHzgqGai3sHsZLqzYBk8/edit?usp=sharing) for the full documentation.")
-        # or use st.markdown directly to open link in new tab:
-        st.write("If you encounter issues with this app, please contact [DSS at Berkeley](https://dssberkeley.com/)")
     # Load cleaned data from preprocessed balance sheet and profit/loss
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     # Process the uploaded file
@@ -198,5 +194,20 @@ else:
 
     st.markdown("<h4 style='text-align: center; color: #B22222;'>About this Dashboard</h4>", unsafe_allow_html=True)
     st.write("This dashboard is designed for Period, Inc. to automatically visualize relevant financial figures.")
+    if "show_text" not in st.session_state:
+        st.session_state["show_text"] = False
+
+        # Define a function to toggle the text visibility
+        def toggle_text():
+            st.session_state["show_text"] = not st.session_state["show_text"]
+
+        # Create a button to toggle the text
+        if st.button("Show/Hide Information", on_click=toggle_text):
+            pass  # The button updates the session state when clicked
+
+        # Conditionally display the text based on the session state
+        if st.session_state["show_text"]:
+            st.write("Here is some important information that can be shown or hidden using the button above.")
+
 
     # End of Streamlit app
