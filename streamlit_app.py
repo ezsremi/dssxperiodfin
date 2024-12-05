@@ -192,9 +192,6 @@ else:
     else:
         st.info("Awaiting file upload. Please upload a CSV file.")
 
-    st.markdown("<h4 style='text-align: center; color: #B22222;'>About this Dashboard</h4>", unsafe_allow_html=True)
-    st.write("This dashboard is designed for Period, Inc. to automatically visualize relevant financial figures.")
-
     if "show_links" not in st.session_state:
         st.session_state["show_links"] = False
 
@@ -208,6 +205,8 @@ else:
 
     # Display clickable documentation links if toggled
     if st.session_state["show_links"]:
+        st.markdown("<h4 style='text-align: center; color: #B22222;'>About this Dashboard</h4>", unsafe_allow_html=True)
+        st.write("This dashboard is designed for Period, Inc. to automatically visualize relevant financial figures.")
         st.subheader("Helpful Documentation Links:")
         st.markdown("- [Dashboard Documentation](https://docs.google.com/document/d/1K6mAgw4I_pu06gdvjqOfTxXiHzgqGai3sHsZLqzYBk8/edit?usp=sharing)")
         st.markdown("- For Dashboard Maintenance or errors, [Contact DSS](https://dssberkeley.com/)")
