@@ -50,7 +50,7 @@ def PF_totals(csv_file):
     return income['Category'], income['Amount'], expenses['Category'], expenses['Amount'], net['Category'], net['Amount']
 
 # Set the password
-PASSWORD = "periodpassword"
+PASSWORD = "periodincconsult"
 
 # Configure the page
 st.set_page_config(page_title="DSS x Period Financial Dashboard", layout="wide")
