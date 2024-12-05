@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import plotly.express as px
 
 def process_csv_and_get_totals(csv_file):
 
@@ -69,11 +70,16 @@ else:
             # Display the DataFrame
             st.subheader("Uploaded File Visualizations:")
             st.subheader("Asset Distribution")
-            fig, ax = plt.subplots(figsize=(3, 3))
-            colors = ["#B22222", "#CD5C5C", "#FA8072"]
-            ax.pie(assettotal, labels=assetcategory, autopct="%1.1f%%", startangle=90, colors=colors)
-            ax.set_title("Asset Distribution", fontsize=14, color="#B22222")
-            st.pyplot(fig)
+            # fig, ax = plt.subplots(figsize=(3, 3))
+            # colors = ["#B22222", "#CD5C5C", "#FA8072"]
+            # ax.pie(assettotal, labels=assetcategory, autopct="%1.1f%%", startangle=90, colors=colors)
+            # ax.set_title("Asset Distribution", fontsize=14, color="#B22222")
+            # st.pyplot(fig)
+            fig = px.pie(values=assettotal, names=assetcategory, title="Asset Distribution", hover_name=assetcategory)
+
+            # Display the interactive chart
+            st.plotly_chart(fig, use_container_width=True)
+
 
             st.subheader("Liability Distribution")
             fig, ax = plt.subplots(figsize=(3, 3))
