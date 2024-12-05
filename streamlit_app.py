@@ -75,12 +75,9 @@ else:
             st.plotly_chart(fig, use_container_width=True)
 
 
-            st.subheader("Liability Distribution")
-            fig, ax = plt.subplots(figsize=(3, 3))
-            colors = ["#B22222", "#CD5C5C", "#FA8072"]
-            ax.pie(liabilitytotal, labels=liabilitycategory, autopct="%1.1f%%", startangle=90, colors=colors)
-            ax.set_title("Liability Distribution", fontsize=14, color="#B22222")
-            st.pyplot(fig)
+            #show liability chart
+            fig = px.pie(values=liabilitytotal, names=liabilitycategory, title="Liability Distribution", hover_name=assetcategory)
+            st.plotly_chart(fig, use_container_width=True)
         #elif "balance" in uploaded_file.name.lower():
     else:
         st.info("Awaiting file upload. Please upload a CSV file.")
