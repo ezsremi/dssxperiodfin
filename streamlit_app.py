@@ -78,6 +78,26 @@ if not st.session_state["authenticated"]:
 else:
     # Set up styling and color scheme
     st.markdown("<h1 style='text-align: center; color: #B22222;'>DSS x Period Automated Dashboard</h1>", unsafe_allow_html=True)
+
+    if "show_links" not in st.session_state:
+        st.session_state["show_links"] = False
+
+    # Function to toggle the visibility of links
+    def toggle_links():
+        st.session_state["show_links"] = not st.session_state["show_links"]
+
+    # Button to toggle documentation links
+    if st.button("Show/Hide Documentation", on_click=toggle_links):
+        pass
+
+    # Display clickable documentation links if toggled
+    if st.session_state["show_links"]:
+        st.markdown("<h4 style='text-align: center; color: #B22222;'>About this Dashboard</h4>", unsafe_allow_html=True)
+        st.write("This dashboard is designed for Period, Inc. to automatically visualize relevant financial figures.")
+        st.subheader("Helpful Documentation Links:")
+        st.markdown("- [Dashboard Documentation](https://docs.google.com/document/d/1K6mAgw4I_pu06gdvjqOfTxXiHzgqGai3sHsZLqzYBk8/edit?usp=sharing)")
+        st.markdown("- For Dashboard Maintenance or errors, [Contact DSS](https://dssberkeley.com/)")
+
     # Load cleaned data from preprocessed balance sheet and profit/loss
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     # Process the uploaded file
@@ -191,25 +211,5 @@ else:
             st.plotly_chart(fig2, use_container_width=True)
     else:
         st.info("Awaiting file upload. Please upload a CSV file.")
-
-    if "show_links" not in st.session_state:
-        st.session_state["show_links"] = False
-
-    # Function to toggle the visibility of links
-    def toggle_links():
-        st.session_state["show_links"] = not st.session_state["show_links"]
-
-    # Button to toggle documentation links
-    if st.button("Show/Hide Documentation", on_click=toggle_links):
-        pass
-
-    # Display clickable documentation links if toggled
-    if st.session_state["show_links"]:
-        st.markdown("<h4 style='text-align: center; color: #B22222;'>About this Dashboard</h4>", unsafe_allow_html=True)
-        st.write("This dashboard is designed for Period, Inc. to automatically visualize relevant financial figures.")
-        st.subheader("Helpful Documentation Links:")
-        st.markdown("- [Dashboard Documentation](https://docs.google.com/document/d/1K6mAgw4I_pu06gdvjqOfTxXiHzgqGai3sHsZLqzYBk8/edit?usp=sharing)")
-        st.markdown("- For Dashboard Maintenance or errors, [Contact DSS](https://dssberkeley.com/)")
-
 
     # End of Streamlit app
