@@ -39,6 +39,11 @@ def PF_totals(csv_file):
     #Look for Totals
     getTotals = df[df['Category'].str.contains('Total', case=False, na=False)]
 
+    # Splitting data
+    income = getTotals.iloc[0:3]
+    expenses = getTotals.iloc[4:-1]
+
+
     net = df[df['Category'].str.contains('Net', case=False, na=False)]
 
     # Return the processed data
@@ -105,8 +110,6 @@ else:
                 "Income Category": incomecategory,
                 "Amount": incometotal
             })
-
-            data = data.drop(data.tail(1).index,inplace=True)
 
             # Create an interactive bar chart using Plotly
             fig = px.bar(
