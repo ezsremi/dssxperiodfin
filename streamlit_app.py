@@ -111,7 +111,7 @@ else:
                 "Amount": incometotal
             })
 
-            data = data.drop(-1)
+            data = data.drop(data.tail(1).index,inplace=True)
 
             # Create an interactive bar chart using Plotly
             fig = px.bar(
