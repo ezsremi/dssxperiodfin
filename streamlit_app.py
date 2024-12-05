@@ -113,12 +113,21 @@ else:
         elif "profit" in uploaded_file.name.lower():
             incomecategory, incometotal, expensescategory, expensestotal, netcategory, nettotal = PF_totals(uploaded_file)
             st.subheader("Income Categories Distribution")
+            # Create a DataFrame from the series
+            data = pd.DataFrame({
+                "Income Category": incomecategory,
+                "Amount": incometotal
+            })
+
+            # Create an interactive bar chart using Plotly
+            st.subheader("Income Categories Distribution")
             fig = px.bar(
-                x=incomecategory,
-                y=incometotal,
-                text=incomecategory,
+                data,
+                x="Income Category",
+                y="Amount",
+                text="Amount",
                 title="Income Categories",
-                labels={incomecategory: "Category", incometotal: "Income Amount ($)"},
+                labels={"Income Category": "Category", "Amount": "Income Amount ($)"},
                 color="Income Category"
             )
 
@@ -130,6 +139,7 @@ else:
                 showlegend=False,
                 template="plotly_white"
             )
+
             # Display the interactive chart in Streamlit
             st.plotly_chart(fig, use_container_width=True)
     else:
