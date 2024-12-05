@@ -3,24 +3,26 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 def process_csv_and_get_totals(csv_file):
- 
+
     df = pd.read_csv(csv_file)
-    
+
     # Rename columns
     df.rename(columns={'Period.,Inc.': 'Category', 'Unnamed: 1': 'Amount'}, inplace=True)
-    
+
     # Drop rows with NaN
     df = df.dropna()
-    
+
+    #Cast to floa
+    df['Amount'] = df['Amount'].replace({',': '', '\$': ''}, regex=True).astype(float)
+
     # Slice data into Assets and Liabilities sections
     assets = df.iloc[0:23]
     liabilities_and_equity = df.iloc[23:62]
-    
+
     # Get rows with 'Total' in the specified column
     asset_totals = assets[assets['Category'].str.contains('Total', case=False, na=False)]
-    asset_totals['Amount'] = asset_totals['Amount'].astype(str).str.replace('$| |,', '').astype('float')
     liabilities_totals = liabilities_and_equity[liabilities_and_equity['Category'].str.contains('Total', case=False, na=False)]
-    liabilities_totals['Amount'] = liabilities_totals['Amount'].astype(str).str.replace('$| |,', '').astype('float')
+
     return asset_totals['Category'], asset_totals['Amount'], liabilities_totals['Category'], liabilities_totals['Amount']
 
 # Set the password
@@ -60,17 +62,19 @@ else:
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     # Process the uploaded file
     if uploaded_file is not None:
-        # Read the uploaded CSV file into a DataFrame
-        assetcategory, assettotal, liabilitycategory, liabilitytotal = process_csv_and_get_totals(uploaded_file)
-        
-        # Display the DataFrame
-        st.subheader("Uploaded File Contents:")
-        st.subheader("Asset Distribution")
-        fig, ax = plt.subplots(figsize=(6, 6))
-        colors = ["#B22222", "#CD5C5C", "#FA8072"]
-        ax.pie(assettotal, labels=assetcategory, autopct="%1.1f%%", startangle=90, colors=colors)
-        ax.set_title("Asset Distribution", fontsize=14, color="#B22222")
-        st.pyplot(fig)
+        if "balance" in uploaded_file.name.lower():
+            # Read the uploaded CSV file into a DataFrame
+            assetcategory, assettotal, liabilitycategory, liabilitytotal = process_csv_and_get_totals(uploaded_file)
+            
+            # Display the DataFrame
+            st.subheader("Uploaded File Contents:")
+            st.subheader("Asset Distribution")
+            fig, ax = plt.subplots(figsize=(6, 6))
+            colors = ["#B22222", "#CD5C5C", "#FA8072"]
+            ax.pie(assettotal, labels=assetcategory, autopct="%1.1f%%", startangle=90, colors=colors)
+            ax.set_title("Asset Distribution", fontsize=14, color="#B22222")
+            st.pyplot(fig)
+        elif "balance" in uploaded_file.name.lower():
     else:
         st.info("Awaiting file upload. Please upload a CSV file.")
     balance_sheet_data = pd.DataFrame({
