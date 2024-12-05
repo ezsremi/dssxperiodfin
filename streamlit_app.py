@@ -25,7 +25,7 @@ if not st.session_state["authenticated"]:
         if password_input == PASSWORD:
             st.session_state["authenticated"] = True
             st.success("Login successful! Redirecting...")
-            st.experimental_rerun()  # Refresh the page to display the dashboard
+            st.rerun()  # Refresh the page to display the dashboard
         else:
             st.error("Incorrect password. Please try again.")
 else:
