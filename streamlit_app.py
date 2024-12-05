@@ -154,7 +154,7 @@ else:
             st.subheader("Expenses Categories Distribution")
             fig1 = px.bar(
                 data1,
-                x="Expense Category",
+                x="Expenses Category",
                 y="Amount",
                 text="Amount",
                 title="Expenses Categories",
