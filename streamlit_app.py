@@ -40,8 +40,8 @@ def PF_totals(csv_file):
     getTotals = df[df['Category'].str.contains('Total', case=False, na=False)]
 
     # Splitting data
-    income = getTotals.iloc[0:4]
-    expenses = getTotals.iloc[4:]
+    income = getTotals.iloc[0:3]
+    expenses = getTotals.iloc[4:-1]
 
 
     net = df[df['Category'].str.contains('Net', case=False, na=False)]
