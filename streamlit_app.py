@@ -13,7 +13,7 @@ def process_csv_and_get_totals(csv_file):
     df = df.dropna()
 
     #Cast to floa
-    df['Amount'] = df['Amount'].replace({',': '', '\$': ''}, regex=True).astype(float)
+    df['Amount'] = df['Amount'].replace({',': '', '\$': '', ' ': ''}, regex=True).astype(float)
 
     # Slice data into Assets and Liabilities sections
     assets = df.iloc[0:23]
