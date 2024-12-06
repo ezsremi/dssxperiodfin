@@ -1,7 +1,7 @@
 # 🩸 DSSxPeriod Automated Financial Visualizations
 
 
-[![Open in Streamlit](https://dssxperiod.streamlit.app/)
+[Open in Streamlit](https://dssxperiod.streamlit.app/)
 
 ### How to run it on your own machine
 
