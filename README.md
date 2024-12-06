@@ -26,10 +26,10 @@
    ```
    $ streamlit run streamlit_app.py
    ```
-3. Access Information
+### Access Information
    Anyone with push access to this repository can manage the Streamlit dashboard deployed via this repository.
 
    This is a private Streamlit Dashboard, so you need to register a Streamlit account with an email. Your email needs to be added into the       list of viewers’ email in Streamlit Share to view it. To grant viewer access, go to Streamlit Share -> Click the 3 dots next to the name       of the app->Settings->Sharing->Under 'Invite viewers by email,' Enter a comma-separated list of emails.
    
-4. Acknowledgements
+### Acknowledgements
    This dashboard is hosted on Streamlit Community Cloud.
